@@ -1,0 +1,5 @@
+# .gitignore (raiz)
+node_modules/
+.idea/
+*.class
+target/
