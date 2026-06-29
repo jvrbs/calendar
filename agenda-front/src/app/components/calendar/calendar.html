@@ -1,1 +1,30 @@
-<p>calendar works!</p>
+<div class="calendar-container">
+
+    <div class="calendar-header">
+        <button (click)="prevMonth"><</button>
+        <h2>{{ monthNames[currentMonth]}} {{ currentYear }}</h2>
+        <button (click)="nextMonth">></button>
+    </div>
+
+    <div class="calendar-grid">
+
+        @for (wd of weekDays; track wd) {
+            <div class="weekday-header">{{ wd }}</div>
+        }
+
+        @for (day of days; track $index) {
+            @if (day == null) { <div class="day-cell empty"></div>}
+            @else {
+                <div class="day-cell" [class.today]="isToday(day)" (click)="openCreate(day)"> 
+                    <span class="day-number">{{ day.getDate() }}</span>
+
+                    @for (event of getEventsForDay(day); track event.id) {
+                        <div class="event-badge" [style.background-color]="event.color || '#4285f4'" (click)="openEdit(event, $event)">
+                            {{event.title}}
+                        </div>
+                    }                
+                </div>
+            }
+        }
+    </div>
+</div>

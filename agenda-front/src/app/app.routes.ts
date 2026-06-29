@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
-// ✅ Correto
-import { CalendarComponent } from './components/calendar/calendar';
+import { Calendar } from './components/calendar/calendar'; // era CalendarComponent
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  { path: '', component: Calendar },
+  { path: '**', redirectTo: '' }
+];
