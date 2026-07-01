@@ -1,62 +1,246 @@
+/* Container de Fundo (Overlay) com desfoque moderno */
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.45);
+  background: rgba(15, 23, 42, 0.4); /* Tom ardósia escuro translúcido */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  animation: fadeInOverlay 0.2s ease-out;
 }
 
+/* Card do Modal com animação de entrada suave "Pop-in" */
 .modal {
-  background: white;
-  border-radius: 10px;
-  width: 420px;
-  max-width: 94vw;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  background: var(--surface-color);
+  border-radius: 16px;
+  width: 480px;
+  max-width: 92vw;
+  box-shadow: var(--shadow-lg), 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
   overflow: hidden;
+  animation: popInModal 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* Cabeçalho Refinado */
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 20px;
-  border-bottom: 1px solid #eee;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.modal-header h3 { margin: 0; font-size: 1rem; }
-.modal-header button { background: none; border: none; font-size: 1rem; cursor: pointer; }
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
 
+/* Botão de Fechar Circular */
+.btn-close {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: var(--transition-default);
+}
+
+.btn-close:hover {
+  background: var(--bg-color);
+  color: var(--text-main);
+  transform: rotate(90deg);
+}
+
+/* Organização Interna do Formulário */
 .modal-body {
-  padding: 16px 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.modal-body label { font-size: 0.82rem; font-weight: 600; color: #444; }
-
-.modal-body input,
-.modal-body textarea {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 0.9rem;
-  width: 100%;
-  box-sizing: border-box;
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
 }
 
-.modal-body textarea { height: 65px; resize: vertical; }
+/* Tipografia de Labels com espaçamento elegante */
+.form-group label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
 
+/* Customização dos Inputs e Textarea */
+.form-group input[type="text"],
+.form-group input[type="datetime-local"],
+.form-group textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  background-color: var(--surface-color);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+/* Estado de Foco com brilho suave baseado na cor primária */
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.form-group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* Container Customizado para o Seletor de Cores */
+.color-picker-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 0;
+}
+
+.color-picker-container input[type="color"] {
+  -webkit-appearance: none;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  background: transparent;
+}
+
+.color-picker-container input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.color-picker-container input[type="color"]::-webkit-color-swatch {
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-default);
+}
+
+.color-picker-container input[type="color"]:hover::-webkit-color-swatch {
+  border-color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+.color-picker-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* Rodapé do Modal */
 .modal-footer {
   display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  padding: 12px 20px;
-  border-top: 1px solid #eee;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-color);
 }
 
-.btn-delete { margin-right: auto; background: #dc3545; color: white; border: none; padding: 8px 14px; border-radius: 5px; cursor: pointer; }
-.btn-cancel { background: none; border: 1px solid #ccc; padding: 8px 14px; border-radius: 5px; cursor: pointer; }
-.btn-save   { background: #4285f4; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; }
+.footer-actions {
+  display: flex;
+  gap: 10px;
+  margin-left: auto; /* Garante alinhamento à direita se botão excluir sumir */
+}
+
+/* Botões do Rodapé */
+.modal-footer button {
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-family: inherit;
+  transition: var(--transition-default);
+}
+
+/* Botão Salvar Principal (Gradiente Vibrante) */
+.btn-save {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2);
+}
+
+.btn-save:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+  filter: brightness(1.05);
+}
+
+/* Botão Cancelar Neutro */
+.btn-cancel {
+  background: var(--surface-color);
+  color: var(--text-secondary);
+  border-color: var(--border-color) !important;
+}
+
+.btn-cancel:hover {
+  background: var(--bg-color);
+  color: var(--text-main);
+  border-color: var(--text-secondary) !important;
+}
+
+/* Botão Excluir (Alerta Vermelho) */
+.btn-delete {
+  background: #fff5f5;
+  color: #e53e3e;
+  border-color: #fed7d7 !important;
+}
+
+.btn-delete:hover {
+  background: #e53e3e;
+  color: #ffffff;
+  border-color: #e53e3e !important;
+  box-shadow: 0 2px 8px rgba(229, 62, 62, 0.2);
+}
+
+/* Animações Keyframes CSS */
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popInModal {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

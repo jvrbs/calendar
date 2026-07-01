@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EventService } from '../../services/event';
 import { Event } from '../../event.model';
@@ -20,7 +20,7 @@ export class Calendar implements OnInit {
 
   days: (Date | null)[] = []; // o dia pode ser uma data ou um 'null', para formatar a 'tabela' visual de um calendário aonde um mês pode começar em uma quinta-feira, então, domingo, segunda e quarta são nulos.
 
-  events: Event[] = []
+  events = signal<Event[]>([]);
 
   showModal = false;
   selectedDate: Date | null = null;
@@ -52,13 +52,13 @@ export class Calendar implements OnInit {
 
   loadEvents(): void{
     this.eventService.findAll().subscribe({
-      next: (data) => this.events = data,
+      next: (data) => this.events.set(data),
       error: (err) => console.error('Erro ao carregar eventos', err)
     });
   }
 
   getEventsForDay(day: Date): Event[]{
-    return this.events.filter(e=> {
+    return this.events().filter(e=> {
       const d = new Date(e.startDateTime);
       return d.getFullYear() === day.getFullYear() &&
              d.getMonth() === day.getMonth() &&

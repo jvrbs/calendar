@@ -1,82 +1,150 @@
 .calendar-container {
   max-width: 960px;
-  margin: 24px auto;
-  font-family: sans-serif;
+  margin: 32px auto;
+  font-family: inherit;
 }
 
 .calendar-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
+  padding: 0 8px;
 }
 
-.calendar-header h2 { font-size: 1.4rem; margin: 0; }
+.calendar-header h2 { 
+  font-size: 1.75rem; 
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 0; 
+  letter-spacing: -0.02em;
+}
 
+/* Botões de navegação circulares e com animação */
 .calendar-header button {
-  background: none;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 6px 14px;
-  font-size: 1.3rem;
-  cursor: pointer;
-}
-
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 1px;
-  background: #ddd;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.weekday-header {
-  background: #f5f5f5;
-  text-align: center;
-  padding: 8px 0;
-  font-weight: 600;
-  font-size: 0.82rem;
-  color: #555;
-}
-
-.day-cell {
-  background: white;
-  min-height: 90px;
-  padding: 6px;
-  cursor: pointer;
-}
-
-.day-cell:hover   { background: #f0f4ff; }
-.day-cell.empty   { background: #fafafa; cursor: default; }
-
-/* Círculo azul no dia atual */
-.day-cell.today .day-number {
-  background: #4285f4;
-  color: white;
+  background: var(--surface-color);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
   border-radius: 50%;
-  width: 26px;
-  height: 26px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-default);
+}
+
+.calendar-header button:hover {
+  background: var(--primary-color);
+  color: #ffffff;
+  border-color: var(--primary-color);
+  transform: scale(1.08);
+  box-shadow: var(--shadow-md);
+}
+
+/* Grid como um Card profundo */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px; /* Cria a ilusão de borda entre os itens de forma elegante */
+  background: var(--border-color);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.weekday-header {
+  background: var(--surface-color);
+  text-align: center;
+  padding: 16px 0;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.day-cell {
+  background: var(--surface-color);
+  min-height: 110px;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* Espaço uniforme entre as tags de evento */
+  transition: var(--transition-default);
+  /* Esta animação é disparada quando o @for do Angular recria o HTML na mudança de mês */
+  animation: fadeInMonth 0.4s ease-out;
+}
+
+.day-cell:hover { 
+  background: var(--bg-color); 
+}
+
+.day-cell.empty { 
+  background: var(--bg-color); 
+  cursor: default; 
+}
+
+.day-cell.empty:hover {
+  background: var(--bg-color); 
 }
 
 .day-number {
-  font-size: 0.85rem;
-  font-weight: 500;
-  margin-bottom: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 6px;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: var(--transition-default);
 }
 
+/* Círculo moderno no dia atual usando gradiente e sombra projetada */
+.day-cell.today .day-number {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.4);
+}
+
+/* Badge de evento moderno (estilo Pill/Chip) */
 .event-badge {
-  font-size: 0.73rem;
-  color: white;
-  border-radius: 3px;
-  padding: 2px 5px;
-  margin-top: 2px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #ffffff;
+  border-radius: 999px; /* Cantos totalmente arredondados */
+  padding: 4px 10px;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-default);
+  transform-origin: left center;
+}
+
+.event-badge:hover {
+  transform: scale(1.03) translateY(-1px);
+  box-shadow: var(--shadow-md);
+  filter: brightness(1.1);
+}
+
+/* Animação de transição suave de troca de mês */
+@keyframes fadeInMonth {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

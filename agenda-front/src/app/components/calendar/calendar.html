@@ -1,9 +1,9 @@
 <div class="calendar-container">
 
     <div class="calendar-header">
-        <button (click)="prevMonth"><</button>
+        <button (click)="prevMonth()">&lt;</button>
         <h2>{{ monthNames[currentMonth]}} {{ currentYear }}</h2>
-        <button (click)="nextMonth">></button>
+        <button (click)="nextMonth()">&gt;</button>
     </div>
 
     <div class="calendar-grid">
@@ -27,4 +27,15 @@
             }
         }
     </div>
+
+    @if (showModal) {
+        <app-event-modal 
+            [event]="selectedEvent" 
+            [selectedDate]="selectedDate"
+            (saved)="onSaved()"
+            (deleted)="onDeleted()"
+            (closed)="closeModal()">
+        </app-event-modal>
+    }
+
 </div>

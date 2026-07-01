@@ -1,35 +1,51 @@
-<!-- Overlay escuro — clique fora fecha -->
 <div class="overlay" (click)="close()">
   <div class="modal" (click)="$event.stopPropagation()">
 
     <div class="modal-header">
       <h3>{{ isEditing() ? 'Editar Evento' : 'Novo Evento' }}</h3>
-      <button (click)="close()">✕</button>
+      <button class="btn-close" (click)="close()">✕</button>
     </div>
 
     <div class="modal-body">
-      <label>Título *</label>
-      <input type="text" [(ngModel)]="form.title" placeholder="Ex: Reunião" />
+      <div class="form-group">
+        <label>Título *</label>
+        <input type="text" [(ngModel)]="form.title" placeholder="Ex: Reunião de Alinhamento" />
+      </div>
 
-      <label>Descrição</label>
-      <textarea [(ngModel)]="form.description" placeholder="Opcional"></textarea>
+      <div class="form-group">
+        <label>Descrição</label>
+        <textarea [(ngModel)]="form.description" placeholder="Adicione detalhes ou notas sobre o evento (opcional)"></textarea>
+      </div>
 
-      <label>Início *</label>
-      <input type="datetime-local" [(ngModel)]="form.startDateTime" />
+      <div class="form-row">
+        <div class="form-group">
+          <label>Início *</label>
+          <input type="datetime-local" [(ngModel)]="form.startDateTime" />
+        </div>
 
-      <label>Fim *</label>
-      <input type="datetime-local" [(ngModel)]="form.endDateTime" />
+        <div class="form-group">
+          <label>Fim *</label>
+          <input type="datetime-local" [(ngModel)]="form.endDateTime" />
+        </div>
+      </div>
 
-      <label>Cor</label>
-      <input type="color" [(ngModel)]="form.color" />
+      <div class="form-group">
+        <label>Cor do Marcador</label>
+        <div class="color-picker-container">
+          <input type="color" [(ngModel)]="form.color" />
+          <span class="color-picker-label">Selecione uma cor para destacar este evento no calendário</span>
+        </div>
+      </div>
     </div>
 
     <div class="modal-footer">
       @if (isEditing()) {
         <button class="btn-delete" (click)="delete()">Excluir</button>
       }
-      <button class="btn-cancel" (click)="close()">Cancelar</button>
-      <button class="btn-save"   (click)="save()">Salvar</button>
+      <div class="footer-actions">
+        <button class="btn-cancel" (click)="close()">Cancelar</button>
+        <button class="btn-save"   (click)="save()">Salvar</button>
+      </div>
     </div>
 
   </div>

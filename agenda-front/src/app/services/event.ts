@@ -12,8 +12,7 @@ export class EventService {
   constructor(private http: HttpClient){}
 
   findAll(): Observable<Event[]>{
-    return this.http.get<Event[]>(this.apiUrl + '/');
-    
+    return this.http.get<Event[]>(this.apiUrl);
   }
 
   findById(id: number): Observable<Event>{
@@ -21,19 +20,15 @@ export class EventService {
   }
 
   save(event: Event): Observable<Event> {
-    return this.http.post<Event>(this.apiUrl + '/', event);
-    
+    return this.http.post<Event>(this.apiUrl, event);
   }
 
   update(id: number, event: Event): Observable<Event> {
     return this.http.put<Event>(`${this.apiUrl}/${id}`, event);
-
   }
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
-
-
 
 }
